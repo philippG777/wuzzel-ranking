@@ -1,0 +1,12 @@
+form {
+    max-width: 550px !important;
+}
+
+a {
+    text-decoration: underline;
+}
+
+footer {
+    padding-top: 7.5rem !important;
+    padding-right: 3rem !important;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" rel="stylesheet">
+  <link href="/static/theme.css" rel="stylesheet">
+  <title>Login</title>
+</head>
+<body>
+  <div class="section hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Wuzzel-ranking-system
+        </h1>
+        <h2 class="subtitle">
+          Focus on things that are really important.
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <form class="container box" method="POST" target="/auth">
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Username">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" placeholder="Password">
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input type="submit" class="button is-dark" value="Submit">
+        </div>
+      </div>
+    </form>
+  </div>
+  <footer class="footer has-background-white">
+    <div class="content has-text-right">
+      <p class="has-text-dark">
+        This is an open-source-project.<br>
+        You can download the soucre-code from <a class="has-text-dark has-text-weight-bold" href="https://github.com/philippG777/wuzzel-ranking">here</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
