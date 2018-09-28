@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # for testing
@@ -14,8 +14,8 @@ def query_user_by_id(id):
     return None
 
 
-def query_user_by_username(username):
-    if username == "test":
+def query_user_by_name(name):
+    if name == "test":
         return generate_test_user()
     return None
 
@@ -26,12 +26,12 @@ class User(object):
         return query_user_by_id(user_id)
     
     @staticmethod
-    def get_by_username(username):
-        return query_user_by_username(username)
+    def get_by_name(name):
+        return query_user_by_name(name)
 
-    def __init__(self, id, username, password_hash):
+    def __init__(self, id, name, password_hash):
         self.id = id
-        self.username = username
+        self.name = name
         self.hash = password_hash
 
         self.is_authenticated = False
@@ -56,18 +56,24 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["u"]
     password = request.form["p"]
 
-    user = User.get_by_username(username)
+    user = User.get_by_name(username)
     if user is not None and user.check_password(password):
         login_user(user)
         return redirect("/dashboard")
     return "Login failed"
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
+
 
 if __name__ == "__main__":
     app.run()
