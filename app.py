@@ -69,30 +69,29 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return redirect("/dashboard/")
-    return render_template("login.html")
+        return render_template("dashboard.html")
+    else:
+        return redirect(url_for("login"))
 
-@app.route("/login/", methods=["POST"])
+@app.route("/login/", methods=["GET", "POST"])
 def login():
+    if request.method == "GET":
+        return render_template("login.html")
+
     username = request.form["u"]
     password = request.form["p"]
 
     user = load_user(username)
     if user is not None and user.check_password(password):
         login_user(user)
-        return redirect(url_for("dashboard"))
-    return redirect("/")
+        return redirect(url_for("index"))
+    return redirect(url_for("login"))
 
 @app.route("/logout/")
 @login_required
 def logout():
     logout_user()
     return redirect("/")
-
-@app.route("/dashboard/")
-@login_required
-def dashboard():
-    return render_template("dashboard.html")
 
 
 if __name__ == "__main__":
