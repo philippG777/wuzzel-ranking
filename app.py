@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_login import current_user, login_required, login_user, \
                                 LoginManager, logout_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import config
 
