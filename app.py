@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from flask_login import current_user, login_required, login_user, LoginManager,
                         logout_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -35,6 +35,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     wins = db.Column(db.Integer)
     losses = db.Column(db.Integer)
+    role = db.Column(db.String(8))
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -77,7 +78,7 @@ def login():
     user = load_user(username)
     if user is not None and user.check_password(password):
         login_user(user)
-        return redirect("/dashboard")
+        return redirect(url_for("dashboard"))
     return redirect("/")
 
 @app.route("/logout/")
