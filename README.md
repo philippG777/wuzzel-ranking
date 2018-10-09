@@ -19,3 +19,9 @@ db_user = "<user for your database>"
 db_password = "<password for the database>"
 
 ```
+
+## Migration
+```
+export FLASK_APP=app.py
+flask db init
+```
