@@ -69,7 +69,8 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return render_template("dashboard.html")
+        return render_template("dashboard.html", users = User.query.all(),
+                                                 games = Game.query.all())
     else:
         return redirect(url_for("login"))
 
