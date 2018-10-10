@@ -106,14 +106,14 @@ def admin():
 def add_user():
     if current_user.role != "admin":
         return redirect(url_for("index"))
-    
+
     username = request.form["u"]
     password = request.form["p"]
 
-    if username not None and password not None:
+    if username is not None and password is not None:
         new_user = User(username=username,
-                   password_hash=generate_password_hash(password), wins=0,
-                   losses=0, role="user")
+                        password_hash=generate_password_hash(password), wins=0,
+                        losses=0, role="user")
         if request.form["a"] is not None:       # admin
             new_user.role = "admin"
         
