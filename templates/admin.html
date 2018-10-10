@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" rel="stylesheet">
+  <link href="/static/theme.css" rel="stylesheet">
+  <title>Admin</title>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Admin-panel
+        </h1>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <form class="container box" method="POST" action="/admin/adduser/">
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input name="u" class="input" type="text" placeholder="Username">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input name="p" class="input" type="password" placeholder="Password">
+        </div>
+      </div>
+      <div class="field">
+        <label class="checkbox">
+          <input name="a" type="checkbox">
+          Create an Admin-user
+        </label>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input type="submit" class="button is-dark" value="Submit">
+        </div>
+      </div>
+    </form>
+  </section>
+</body>
+</html>

@@ -94,6 +94,34 @@ def logout():
     logout_user()
     return redirect("/")
 
+@app.route("/admin/")
+@login_required
+def admin():
+    if current_user.role != "admin":
+        return redirect(url_for("index"))
+    return render_template("admin.html")
+
+@app.route("/admin/adduser/", methods=["POST"])
+@login_required
+def add_user():
+    if current_user.role != "admin":
+        return redirect(url_for("index"))
+    
+    username = request.form["u"]
+    password = request.form["p"]
+
+    if username not None and password not None:
+        new_user = User(username=username,
+                   password_hash=generate_password_hash(password), wins=0,
+                   losses=0, role="user")
+        if request.form["a"] is not None:       # admin
+            new_user.role = "admin"
+        
+        db.session.add(new_user)
+        db.session.commit()
+
+    return redirect(url_for("admin"))
+
 
 if __name__ == "__main__":
     app.run()
