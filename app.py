@@ -69,8 +69,8 @@ def load_user(user_id):
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        return render_template("dashboard.html", users = User.query.all(),
-                                                 games = Game.query.all())
+        return render_template("dashboard.html", users=User.query.all(),
+                                                 games=Game.query.all())
     else:
         return redirect(url_for("login"))
 
@@ -93,6 +93,30 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+@app.route("/addgame/", methods=["GET", "POST"])
+@login_required
+def add_game():
+    if request.method == "GET":
+        return render_template("addgame.html", users=User.query.all())
+    
+    winner_front = request.form["wf"]
+    winner_back = request.form["wb"]
+    looser_front = request.form["lf"]
+    looser_back = request.form["lb"]
+
+    if winner_front is not None and winner_back is not None and \
+        looser_front is not None and looser_back is not None:
+        new_game = Game(
+           winner_front=User.query.filter_by(username=winner_front).first(),
+           winner_back=User.query.filter_by(username=winner_back).first(),
+           looser_front=User.query.filter_by(username=looser_front).first(),
+           looser_back=User.query.filter_by(username=looser_back).first())
+        
+        db.session.add(new_game)
+        db.session.commit()
+
+    return redirect(url_for("index"))
 
 @app.route("/admin/")
 @login_required
