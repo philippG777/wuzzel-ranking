@@ -35,7 +35,7 @@
             <td>{{ user.wins }}</td>
             <td>{{ user.losses }}</td>
             <td>{{ user.role|e }}</td>
-            {% if user.losses != 0 %}
+            {% if user.losses == 0 %}
               <td>No Losses</td>
             {% else %}
               <td>{{ user.wins / user.losses }}</td>
