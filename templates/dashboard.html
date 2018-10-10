@@ -26,13 +26,15 @@
           <th>Wins</th>
           <th>Losses</th>
           <th>Role</th>
+          <th>Win-Loss-Ratio</th>
         </tr>
         {% for user in users %}
         <tr>
-          <td>{{ user.username }}</td>
+          <td>{{ user.username|e }}</td>
           <td>{{ user.wins }}</td>
           <td>{{ user.losses }}</td>
-          <td>{{ user.role }}</td>
+          <td>{{ user.role|e }}</td>
+          <td>{{ (user.wins / user.losses) if user.losses != 0 else (No Losses) }}</td>
         </tr>
         {% endfor %}
       </table>
@@ -49,10 +51,10 @@
         </tr>
         {% for game in games %}
         <tr>
-          <td>{{ game.winner_front.username }}</td>
-          <td>{{ game.winner_back.username }}</td>
-          <td>{{ game.looser_front.username }}</td>
-          <td>{{ game.looser_back.username }}</td>
+          <td>{{ game.winner_front.username|e }}</td>
+          <td>{{ game.winner_back.username|e }}</td>
+          <td>{{ game.looser_front.username|e }}</td>
+          <td>{{ game.looser_back.username|e }}</td>
         </tr>
         {% endfor %}
       </table>
