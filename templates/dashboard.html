@@ -8,12 +8,13 @@
   <title>Wuzzel-ranking</title>
 </head>
 <body>
-  <a href="/logout/">Logout</a>
+  
   <section class="hero">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">Dashboard</h1>
-        <h2 class="subtitle">Hello {{ current_user.username }}!</h2>
+        <h2 class="subtitle">Hello {{ current_user.username }}!<br>
+        (<a href="/logout/">Logout</a>)</h2>
       </div>
     </div>
   </section>
