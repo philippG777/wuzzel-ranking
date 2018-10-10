@@ -15,3 +15,7 @@ table {
     width: 100%;
     text-align: center;
 }
+
+.button {
+    text-decoration: none !important;
+}
