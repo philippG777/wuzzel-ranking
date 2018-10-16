@@ -7,6 +7,14 @@ from flask_migrate import Migrate
 from datetime import datetime
 import config
 
+"""
+TODO
+====
+* Fix user-adding
+* Check if user exists at user-adding
+* Refactor User-validation when adding a game
+* Increment the wins and losses counters when adding a game
+"""
 
 SQLALCHEMY_DATABASE_URI = ("mysql+mysqlconnector://{username}:"
                            "{password}@{hostname}/{databasename}").format(
