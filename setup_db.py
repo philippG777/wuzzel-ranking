@@ -1,4 +1,3 @@
-from database import db
-from app import app
+from app import app, db
 db.create_all(app = app)
 print("Created DB")
