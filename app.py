@@ -157,14 +157,15 @@ def add_user():
     password = request.form["p"]
 
     if username is not None and password is not None:
-        new_user = User(username=username,
-                        password_hash=generate_password_hash(password), wins=0,
-                        losses=0, role="user")
+        # new_user = User(username=username,
+        #                password_hash=generate_password_hash(password), wins=0,
+        #                losses=0, role="user")
         if request.form["a"] is not None:       # admin
-            new_user.role = "admin"
-        
-        db.session.add(new_user)
-        db.session.commit()
+            # new_user.role = "admin"
+            pass
+        return "Add new user name: %s password: %s" % (username, password)
+        # db.session.add(new_user)
+        # db.session.commit()
 
     return redirect(url_for("admin"))
 
