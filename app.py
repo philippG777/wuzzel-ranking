@@ -12,8 +12,7 @@ TODO
 ====
 * Fix user-adding
 * Check if user exists at user-adding
-* Refactor User-validation when adding a game
-* Increment the wins and losses counters when adding a game
+* display a list of users when adding a game
 """
 
 SQLALCHEMY_DATABASE_URI = ("mysql+mysqlconnector://{username}:"
@@ -102,6 +101,17 @@ def logout():
     logout_user()
     return redirect("/")
 
+def validate_game_players(players):
+    for player in players:
+        if player is None:
+            return False
+    for i, player in players:
+        for u, player2 in players:
+            if i is not u:
+                if player is player2:
+                    return False
+    return True
+
 @app.route("/addgame/", methods=["GET", "POST"])
 @login_required
 def add_game():
@@ -113,14 +123,18 @@ def add_game():
     looser_front = request.form["lf"]
     looser_back = request.form["lb"]
 
-    if winner_front is not None and winner_back is not None and \
-        looser_front is not None and looser_back is not None:
+    if validate_game_players([winner_front, winner_back, looser_front, \
+        looser_back]):
         new_game = Game(
            winner_front=User.query.filter_by(username=winner_front).first(),
            winner_back=User.query.filter_by(username=winner_back).first(),
            looser_front=User.query.filter_by(username=looser_front).first(),
            looser_back=User.query.filter_by(username=looser_back).first())
         
+        winner_front.wins += 1
+        winner_back.wins += 1
+        looser_front.losses += 1
+        looser_back.losses += 1
         db.session.add(new_game)
         db.session.commit()
 
