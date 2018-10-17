@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" rel="stylesheet">
+  <link href="/static/theme.css" rel="stylesheet">
+  <title>New Game</title>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          New Game
+        </h1>
+        <h2 class="subtitle">
+          Add a new game
+        </h2>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <form class="container box" method="POST" action="/addgame/">
+      <div class="field">
+        <label class="label">Winner-front</label>
+        <div class="control">
+          <div class="select">
+            <select name="wf">
+              {% for user in users %}
+                <option>{{ user.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Winner-back</label>
+        <div class="control">
+          <div class="select">
+            <select name="wb">
+              {% for user in users %}
+                <option>{{ user.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Looser-front</label>
+        <div class="control">
+          <div class="select">
+            <select name="lf">
+              {% for user in users %}
+                <option>{{ user.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Looser-back</label>
+        <div class="control">
+          <div class="select">
+            <select name="lb">
+              {% for user in users %}
+                <option>{{ user.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+    <div class="field">
+        <div class="control">
+          <input type="submit" class="button is-dark" value="Submit">
+        </div>
+      </div>
+    </form>
+  </section>
+</body>
+</html>
