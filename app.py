@@ -101,7 +101,7 @@ def logout():
     logout_user()
     return redirect("/")
 
-def validate_game_players(players):
+def validate_game_players(user, players):
     for player in players:
         if player is None:
             return False
@@ -110,7 +110,9 @@ def validate_game_players(players):
             if i is not u:
                 if player is player2:
                     return False
-    return True
+    if players[0] == user.username or players[1] == user.username:
+        return True
+    return False
 
 @app.route("/addgame/", methods=["GET", "POST"])
 @login_required
@@ -123,9 +125,9 @@ def add_game():
     looser_front = request.form["lf"]
     looser_back = request.form["lb"]
 
-    if validate_game_players([winner_front, winner_back, looser_front, \
-        looser_back]):
-        new_game = Game(
+    if validate_game_players(current_user, [winner_front, winner_back, \
+        looser_front, looser_back]):
+        """ new_game = Game(
            winner_front=User.query.filter_by(username=winner_front).first(),
            winner_back=User.query.filter_by(username=winner_back).first(),
            looser_front=User.query.filter_by(username=looser_front).first(),
@@ -136,7 +138,9 @@ def add_game():
         looser_front.losses += 1
         looser_back.losses += 1
         db.session.add(new_game)
-        db.session.commit()
+        db.session.commit() """
+        return "Add game with wf %s, wb %s, lf %s, lb %s" % (winner_front,
+               winner_back, looser_front, looser_back)
 
     return redirect(url_for("index"))
 
