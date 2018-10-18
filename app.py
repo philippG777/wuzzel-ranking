@@ -105,10 +105,10 @@ def validate_game_players(user, players):
     for player in players:
         if player is None:
             return False
-    for i, player in players:
-        for u, player2 in players:
+    for i in range(len(players)):
+        for u in range(len(players)):
             if i is not u:
-                if player is player2:
+                if players[i] is players[u]:
                     return False
     if players[0] == user.username or players[1] == user.username:
         return True
