@@ -127,11 +127,11 @@ def add_game():
 
     if validate_game_players(current_user, [winner_front, winner_back, \
         looser_front, looser_back]):
-        new_game = Game(
-           winner_front=User.query.filter_by(username=winner_front).first(),
-           winner_back=User.query.filter_by(username=winner_back).first(),
-           looser_front=User.query.filter_by(username=looser_front).first(),
-           looser_back=User.query.filter_by(username=looser_back).first())
+        winner_front = User.query.filter_by(username=winner_front).first()
+        winner_back = User.query.filter_by(username=winner_back).first()
+        looser_front = User.query.filter_by(username=looser_front).first()
+        looser_back = User.query.filter_by(username=looser_back).first()
+        new_game = Game(winner_front, winner_back, looser_front, looser_back)
         
         winner_front.wins += 1
         winner_back.wins += 1
@@ -139,8 +139,6 @@ def add_game():
         looser_back.losses += 1
         db.session.add(new_game)
         db.session.commit()
-        # return "Add game with wf %s, wb %s, lf %s, lb %s" % (winner_front,
-        #        winner_back, looser_front, looser_back)
 
     return redirect(url_for("index"))
 
