@@ -131,7 +131,8 @@ def add_game():
         winner_back = User.query.filter_by(username=winner_back).first()
         looser_front = User.query.filter_by(username=looser_front).first()
         looser_back = User.query.filter_by(username=looser_back).first()
-        new_game = Game(winner_front, winner_back, looser_front, looser_back)
+        new_game = Game(winner_front=winner_front, winner_back=winner_back,
+                        looser_front=looser_front, looser_back=looser_back)
         
         winner_front.wins += 1
         winner_back.wins += 1
