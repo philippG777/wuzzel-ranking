@@ -1,8 +1,6 @@
 # wuzzel-ranking
 This repository contains a simple ranking-system for wuzzeln.
 
-**NOTE: This project is still in development!**
-
 ## Setting everything up
 All the software is ready to be hosted on [pythonanywhere](https://www.pythonanywhere.com/).
 The only thing to be done after cloning this repository is the configuration.
