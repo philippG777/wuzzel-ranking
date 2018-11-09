@@ -62,7 +62,7 @@ class Game(db.Model):
     winner_back_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     looser_front_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
     looser_back_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
-    
+
     winner_front = db.relationship('User', foreign_keys=winner_front_id)
     winner_back = db.relationship('User', foreign_keys=winner_back_id)
     looser_front = db.relationship('User', foreign_keys=looser_front_id)
@@ -102,14 +102,17 @@ def logout():
     return redirect("/")
 
 def validate_game_players(user, players):
-    for player in players:
-        if player is None:
-            return False
-    for i in range(len(players)):
-        for u in range(len(players)):
-            if i is not u:
-                if players[i] is players[u]:
-                    return False
+    pnames = {}
+
+    for p in players:
+        if p in pnames:
+            pnames[p] += 1
+        else:
+            pnames[p] = 1
+
+    if len(pnames) != 4:
+        return False
+
     if players[0] == user.username or players[1] == user.username:
         return True
     return False
@@ -119,7 +122,7 @@ def validate_game_players(user, players):
 def add_game():
     if request.method == "GET":
         return render_template("addgame.html", users=User.query.all())
-    
+
     winner_front = request.form["wf"]
     winner_back = request.form["wb"]
     looser_front = request.form["lf"]
@@ -133,7 +136,7 @@ def add_game():
         looser_back = User.query.filter_by(username=looser_back).first()
         new_game = Game(winner_front=winner_front, winner_back=winner_back,
                         looser_front=looser_front, looser_back=looser_back)
-        
+
         winner_front.wins += 1
         winner_back.wins += 1
         looser_front.losses += 1
